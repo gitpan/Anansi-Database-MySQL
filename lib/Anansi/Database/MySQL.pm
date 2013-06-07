@@ -106,7 +106,7 @@ L<Anansi::DatabaseComponent> and L<base>.
 =cut
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Anansi::DatabaseComponent);
 
@@ -213,17 +213,22 @@ saved by default.
 
 =item DATABASE I<(String, Optional)>
 
-The name of the MySQL database.  The I<mysql> B<DATABASE> is used by default.
+The name of the MySQL database.  A value of B<mysql> is used by default.
 
 =item HOSTNAME I<(String, Optional)>
 
-The IP address of the computer where the MySQL B<DATABASE> is hosted.  The
-B<localhost> is used by default.
+The IP address of the computer where the MySQL B<DATABASE> is hosted.  A value
+of B<127.0.0.1> is used by default.
 
 =item PASSWORD I<(String, Optional)>
 
-The password of the B<USERNAME> that is accessing the MySQL database.  A blank
-B<PASSWORD> is used by default.
+The password of the B<USERNAME> that is accessing the MySQL database.  A value
+of B<undef> is used by default.
+
+=item PORT I<(String, Optional)>
+
+The IP address port number of the computer where the MySQL B<DATABASE> is
+hosted.  A value of B<3306> I<(three three zero six)> is used by default.
 
 =item PrintError I<(String, Optional)>
 
@@ -239,7 +244,7 @@ means errors will not be output in this way.  Errors are output by default.
 
 =item USERNAME I<(String, Optional)>
 
-The user that is accessing the MySQL database.  A blank B<USERNAME> is used by
+The user that is accessing the MySQL database.  A value of B<undef> is used by
 default.
 
 =back
@@ -264,18 +269,21 @@ sub connect {
                         REF => '',
                     },
                     ';host=', {
-                        DEFAULT => 'localhost',
+                        DEFAULT => '127.0.0.1',
                         NAME => 'HOSTNAME',
+                        REF => '',
+                    },
+                    ';port=', {
+                        DEFAULT => '3306',
+                        NAME => 'PORT',
                         REF => '',
                     }
                 ],
                 REF => '',
             }, {
-                DEFAULT => '',
                 NAME => 'USERNAME',
                 REF => '',
             }, {
-                DEFAULT => '',
                 NAME => 'PASSWORD',
                 REF => '',
             }, {
