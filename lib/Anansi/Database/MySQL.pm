@@ -100,32 +100,156 @@ Anansi::Database::MySQL - A manager for MySQL databases.
 =head1 DESCRIPTION
 
 Manages MySQL databases allowing the opening and closing of MySQL databases.
-Uses L<Anansi::Actor>, L<Anansi::ComponentManager> I<(indirectly)>,
-L<Anansi::DatabaseComponent> and L<base>.
 
 =cut
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base qw(Anansi::DatabaseComponent);
 
 
-=head1 INHERITED METHODS
+=head1 METHODS
 
 =cut
 
 
-=head2 addChannel
+=head2 Anansi::Class
 
-Declared in L<Anansi::Component>.
+See L<Anansi::Class|Anansi::Class> for details.  A parent module of L<Anansi::Component|Anansi::Component>.
 
 =cut
 
 
-=head2 autocommit
+=head3 DESTROY
 
-Declared in L<Anansi::DatabaseComponent>.
+See L<Anansi::Class::DESTROY|Anansi::Class/"DESTROY"> for details.
+
+=cut
+
+
+=head3 finalise
+
+See L<Anansi::Class::finalise|Anansi::Class/"finalise"> for details.  Overridden by L<Anansi::DatabaseComponent::finalise|Anansi::DatabaseComponent/"finalise">.  A virtual method.
+
+=cut
+
+
+=head3 implicate
+
+See L<Anansi::Class::implicate|Anansi::Class/"implicate"> for details.  A virtual method.
+
+=cut
+
+
+=head3 import
+
+See L<Anansi::Class::import|Anansi::Class/"import"> for details.
+
+=cut
+
+
+=head3 initialise
+
+See L<Anansi::Class::initialise|Anansi::Class/"initialise"> for details.  Overridden by L<Anansi::DatabaseComponent::initialise|Anansi::DatabaseComponent/"initialise">.  A virtual method.
+
+=cut
+
+
+=head3 new
+
+See L<Anansi::Class::new|Anansi::Class/"new"> for details.
+
+=cut
+
+
+=head3 old
+
+See L<Anansi::Class::old|Anansi::Class/"old"> for details.
+
+=cut
+
+
+=head3 used
+
+See L<Anansi::Class::used|Anansi::Class/"used"> for details.
+
+=cut
+
+
+=head3 uses
+
+See L<Anansi::Class::uses|Anansi::Class/"uses"> for details.
+
+=cut
+
+
+=head3 using
+
+See L<Anansi::Class::using|Anansi::Class/"using"> for details.
+
+=cut
+
+
+=head2 Anansi::Component
+
+See L<Anansi::Component|Anansi::Component> for details.  A parent module of L<Anansi::DatabaseComponent|Anansi::DatabaseComponent>.
+
+=cut
+
+
+=head3 Anansi::Class
+
+See L<Anansi::Class|Anansi::Class> for details.  A parent module of L<Anansi::Component|Anansi::Component>.
+
+=cut
+
+
+=head3 addChannel
+
+See L<Anansi::Component::addChannel|Anansi::Component/"addChannel"> for details.
+
+=cut
+
+
+=head3 channel
+
+See L<Anansi::Component::channel|Anansi::Component/"channel"> for details.
+
+=cut
+
+
+=head3 componentManagers
+
+See L<Anansi::Component::componentManagers|Anansi::Component/"componentManagers"> for details.
+
+=cut
+
+
+=head3 removeChannel
+
+See L<Anansi::Component::removeChannel|Anansi::Component/"removeChannel"> for details.
+
+=cut
+
+
+=head2 Anansi::DatabaseComponent
+
+See L<Anansi::DatabaseComponent|Anansi::DatabaseComponent> for details.  A parent module of L<Anansi::Database::MySQL|Anansi::Database::MySQL>.
+
+=cut
+
+
+=head3 Anansi::Component
+
+See L<Anansi::Component|Anansi::Component> for details.  A parent module of L<Anansi::DatabaseComponent|Anansi::DatabaseComponent>.
+
+=cut
+
+
+=head3 autoCommit
+
+See L<Anansi::DatabaseComponent::autoCommit|Anansi::DatabaseComponent/"autoCommit"> for details.
 
 =cut
 
@@ -133,30 +257,23 @@ Declared in L<Anansi::DatabaseComponent>.
 Anansi::Component::addChannel('Anansi::Database::MySQL', 'AUTOCOMMIT' => 'Anansi::DatabaseComponent::autocommit');
 
 
-=head2 bind
+=head3 bind
 
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-=head2 binding
-
-Declared in L<Anansi::DatabaseComponent>.
+See L<Anansi::DatabaseComponent::bind|Anansi::DatabaseComponent/"bind"> for details.
 
 =cut
 
 
-=head2 channel
+=head3 binding
 
-Declared in L<Anansi::Component>.
+See L<Anansi::DatabaseComponent::binding|Anansi::DatabaseComponent/"binding"> for details.
 
 =cut
 
 
-=head2 commit
+=head3 commit
 
-Declared in L<Anansi::DatabaseComponent>.
+See L<Anansi::DatabaseComponent::commit|Anansi::DatabaseComponent/"commit"> for details.
 
 =cut
 
@@ -164,9 +281,90 @@ Declared in L<Anansi::DatabaseComponent>.
 Anansi::Component::addChannel('Anansi::Database::MySQL', 'COMMIT' => 'Anansi::DatabaseComponent::commit');
 
 
-=head2 componentManagers
+=head3 connect
 
-Declared in L<Anansi::Component>.
+See L<Anansi::DatabaseComponent::connect|Anansi::DatabaseComponent/"connect"> for details.  Overridden by L<Anansi::Database::MySQL::connect|Anansi::Database::MySQL/"connect">.
+
+=cut
+
+
+=head3 disconnect
+
+See L<Anansi::DatabaseComponent::disconnect|Anansi::DatabaseComponent/"disconnect"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'DISCONNECT' => 'Anansi::DatabaseComponent::disconnect');
+
+
+=head3 finalise
+
+See L<Anansi::DatabaseComponent::finalise|Anansi::DatabaseComponent/"finalise"> for details.  Overrides L<Anansi::Class::finalise|Anansi::Class/"finalise">.  A virtual method.
+
+=cut
+
+
+=head3 finish
+
+See L<Anansi::DatabaseComponent::finish|Anansi::DatabaseComponent/"finish"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'FINISH' => 'Anansi::DatabaseComponent::finish');
+
+
+=head3 handle
+
+See L<Anansi::DatabaseComponent::handle|Anansi::DatabaseComponent/"handle"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'HANDLE' => 'Anansi::DatabaseComponent::handle');
+
+
+=head3 initialise
+
+See L<Anansi::DatabaseComponent::initialise|Anansi::DatabaseComponent/"initialise"> for details.  Overrides L<Anansi::Class::initialise|Anansi::Class/"initialise">.  A virtual method.
+
+=cut
+
+
+=head3 prepare
+
+See L<Anansi::DatabaseComponent::prepare|Anansi::DatabaseComponent/"prepare"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'PREPARE' => 'Anansi::DatabaseComponent::prepare');
+
+
+=head3 rollback
+
+See L<Anansi::DatabaseComponent::rollback|Anansi::DatabaseComponent/"rollback"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'ROLLBACK' => 'Anansi::DatabaseComponent::rollback');
+
+
+=head3 statement
+
+See L<Anansi::DatabaseComponent::statement|Anansi::DatabaseComponent/"statement"> for details.
+
+=cut
+
+
+Anansi::Component::addChannel('Anansi::Database::MySQL', 'STATEMENT' => 'Anansi::DatabaseComponent::statement');
+
+
+=head3 validate
+
+See L<Anansi::DatabaseComponent::validate|Anansi::DatabaseComponent/"validate"> for details.  Overridden by L<Anansi::Database::MySQL::validate|Anansi::Database::MySQL/"validate">.
 
 =cut
 
@@ -181,11 +379,10 @@ Declared in L<Anansi::Component>.
         USERNAME => 'someUser',
     ));
 
+    my $handle = DBI->connect('DBI:mysql:database=someDatabase', 'someUser', 'somePassword');
     if($OBJECT->connect(
         undef,
-        DATABASE => 'someDatabase',
-        PASSWORD => 'somePassword',
-        USERNAME => 'someUser',
+        HANDLE => $handle,
     ));
 
 =over 4
@@ -214,6 +411,10 @@ saved by default.
 =item DATABASE I<(String, Optional)>
 
 The name of the MySQL database.  A value of B<mysql> is used by default.
+
+=item HANDLE I<(DBI::db, Optional)>
+
+The database handle of an existing database connection.
 
 =item HOSTNAME I<(String, Optional)>
 
@@ -251,7 +452,7 @@ default.
 
 =back
 
-Declared in L<Anansi::DatabaseComponent>.  Overridden by this module.
+Overrides L<Anansi::DatabaseComponent::connect|Anansi::DatabaseComponent/"connect">.
 
 =cut
 
@@ -309,123 +510,8 @@ sub connect {
     );
 }
 
+
 Anansi::Component::addChannel('Anansi::Database::MySQL', 'CONNECT' => 'connect');
-
-
-=head2 disconnect
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'DISCONNECT' => 'Anansi::DatabaseComponent::disconnect');
-
-
-=head2 finalise
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-=head2 finish
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'FINISH' => 'Anansi::DatabaseComponent::finish');
-
-
-=head2 handle
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'HANDLE' => 'Anansi::DatabaseComponent::handle');
-
-
-=head2 implicate
-
-Declared in L<Anansi::Class>.
-
-=cut
-
-
-=head2 import
-
-Declared in L<Anansi::Class>.
-
-=cut
-
-
-=head2 initialise
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-=head2 old
-
-Declared in L<Anansi::Class>.
-
-=cut
-
-
-=head2 prepare
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'PREPARE' => 'Anansi::DatabaseComponent::prepare');
-
-
-=head2 removeChannel
-
-Declared in L<Anansi::Component>.
-
-=cut
-
-
-=head2 rollback
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'ROLLBACK' => 'Anansi::DatabaseComponent::rollback');
-
-
-=head2 statement
-
-Declared in L<Anansi::DatabaseComponent>.
-
-=cut
-
-
-Anansi::Component::addChannel('Anansi::Database::MySQL', 'STATEMENT' => 'Anansi::DatabaseComponent::statement');
-
-
-=head2 used
-
-Declared in L<Anansi::Class>.
-
-=cut
-
-
-=head2 uses
-
-Declared in L<Anansi::Class>.
-
-=cut
 
 
 =head2 validate
@@ -471,7 +557,7 @@ component will be used otherwise an attempt will be made to use this driver.
 
 =back
 
-Declared in L<Anansi::DatabaseComponent>.  Overridden by this module.
+Overrides L<Anansi::DatabaseComponent::validate|Anansi::DatabaseComponent/"validate">.
 
 =cut
 
@@ -484,11 +570,6 @@ sub validate {
 
 
 Anansi::Component::addChannel('Anansi::Database::MySQL', 'VALIDATE_AS_APPROPRIATE' => 'validate');
-
-
-=head1 METHODS
-
-=cut
 
 
 =head1 NOTES
